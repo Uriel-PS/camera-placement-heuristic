@@ -1,0 +1,112 @@
+============================================================
+ SISTEMA DE VIGILANCIA - Alocacao Heuristica de Cameras
+============================================================
+Mapa: 15 x 20 | Celulas livres: 148
+Parametros: max_cameras=12 | FOV=90 graus | alcance=8 celulas
+
+Mapa original (paredes # / espaco livre ?):
+
+     01234567890123456789
+  0  ####################
+  1  #?????#???????#????#
+  2  #?##??#?####??#?##?#
+  3  #?#?????#??#????#??#
+  4  #?#?###?#??#?##?#?##
+  5  #???#?????????#????#
+  6  ###?#?#######?#?##?#
+  7  #?????#?????#????#?#
+  8  #?###?#?##?##?##?#?#
+  9  #???#???#?????#????#
+ 10  ###?###?#?#####?##?#
+ 11  #??????????????????#
+ 12  #?#######?#######?##
+ 13  #??????????????????#
+ 14  ####################
+
+Legenda: # parede | . coberto | ? ponto cego (nao coberto) | ^ > v < camera (direcao)
+
+--- FASE 1: Heuristica Gulosa (Greedy Set Cover) ---
+  Camera  1 colocada em (13,10) direcao Oeste  | + 14 celulas | cobertura total: 9.5%
+  Camera  2 colocada em ( 1, 4) direcao Sul    | + 13 celulas | cobertura total: 18.2%
+  Camera  3 colocada em ( 8,13) direcao Norte  | + 13 celulas | cobertura total: 27.0%
+  Camera  4 colocada em (11,18) direcao Oeste  | + 11 celulas | cobertura total: 34.5%
+  Camera  5 colocada em ( 5,11) direcao Oeste  | +  9 celulas | cobertura total: 40.5%
+  Camera  6 colocada em (10,18) direcao Norte  | +  9 celulas | cobertura total: 46.6%
+  Camera  7 colocada em (11, 1) direcao Leste  | +  9 celulas | cobertura total: 52.7%
+  Camera  8 colocada em (13,18) direcao Oeste  | +  8 celulas | cobertura total: 58.1%
+  Camera  9 colocada em ( 7,11) direcao Oeste  | +  7 celulas | cobertura total: 62.8%
+  Camera 10 colocada em ( 1, 7) direcao Leste  | +  6 celulas | cobertura total: 66.9%
+  Camera 11 colocada em ( 1,15) direcao Sul    | +  6 celulas | cobertura total: 70.9%
+  Camera 12 colocada em ( 1, 1) direcao Sul    | +  5 celulas | cobertura total: 74.3%
+
+Mapa apos fase gulosa:
+
+     01234567890123456789
+  0  ####################
+  1  #v??v?#>......#v???#
+  2  #.##..#?####.?#.##?#
+  3  #.#....?#.?#.?..#?.#
+  4  #.#.###.#..#.##.#.##
+  5  #...#......<?.#..?.#
+  6  ###.#?#######.#.##.#
+  7  #?????#....<#...?#.#
+  8  #?###.#?##.##^##.#.#
+  9  #???#?.?#.????#??..#
+ 10  ###.###.#?#####.##^#
+ 11  #>................<#
+ 12  #?#######.#######.##
+ 13  #?........<.......<#
+ 14  ####################
+
+Legenda: # parede | . coberto | ? ponto cego (nao coberto) | ^ > v < camera (direcao)
+
+--- FASE 2: Busca Local (refinamento) ---
+
+[Busca Local] Iniciando refinamento das posicoes...
+  [iter 1] Camera 4 realocada: (11,18,Oeste) -> (11,8,Leste) | cobertura total: 110/148
+[Busca Local] Convergiu (sem melhorias) na iteracao 2.
+
+Mapa apos busca local (resultado final):
+
+     01234567890123456789
+  0  ####################
+  1  #v??v?#>......#v???#
+  2  #.##..#?####.?#.##?#
+  3  #.#....?#.?#.?..#?.#
+  4  #.#.###.#..#.##.#.##
+  5  #...#......<?.#..?.#
+  6  ###.#?#######.#.##.#
+  7  #?????#....<#...?#.#
+  8  #?###.#?##.##^##.#.#
+  9  #???#?.?#..???#??..#
+ 10  ###.###.#.#####.##^#
+ 11  #>......>........??#
+ 12  #?#######.#######.##
+ 13  #?........<.......<#
+ 14  ####################
+
+Legenda: # parede | . coberto | ? ponto cego (nao coberto) | ^ > v < camera (direcao)
+
+================= RELATORIO FINAL =================
+Dimensao do mapa: 15 x 20
+Celulas livres (area util): 148
+Cameras utilizadas: 12
+FOV por camera: 90 graus | Alcance: 8 celulas
+Celulas cobertas: 110
+Pontos cegos remanescentes: 38
+Cobertura total: 74.32%
+=====================================================
+
+Posicoes finais das cameras:
+  Camera  1: linha=13 coluna=10 direcao=Oeste 
+  Camera  2: linha= 1 coluna= 4 direcao=Sul   
+  Camera  3: linha= 8 coluna=13 direcao=Norte 
+  Camera  4: linha=11 coluna= 8 direcao=Leste 
+  Camera  5: linha= 5 coluna=11 direcao=Oeste 
+  Camera  6: linha=10 coluna=18 direcao=Norte 
+  Camera  7: linha=11 coluna= 1 direcao=Leste 
+  Camera  8: linha=13 coluna=18 direcao=Oeste 
+  Camera  9: linha= 7 coluna=11 direcao=Oeste 
+  Camera 10: linha= 1 coluna= 7 direcao=Leste 
+  Camera 11: linha= 1 coluna=15 direcao=Sul   
+  Camera 12: linha= 1 coluna= 1 direcao=Sul   
