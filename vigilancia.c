@@ -119,8 +119,6 @@ int linha_de_visao_livre(Mapa *m, int r0, int c0, int r1, int c1) {
         if (e2 > -dc) { err -= dc; r += sr; }
         if (e2 <  dr) { err += dr; c += sc; }
 
-        /* chegamos ao destino: nao precisa checar a propria celula destino aqui,
-           quem chama ja sabe que o destino e livre (checado antes) */
         if (r == r1 && c == c1) break;
 
         /* celula intermediaria bloqueada -> sem visao */
