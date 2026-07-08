@@ -438,11 +438,15 @@ void imprime_mapa(Mapa *m) {
     }
 
     printf("\n     ");
-    for (int c = 0; c < m->colunas; c++) printf("%d", c % 10);
+    // Adicionado um espaço após o %d para alargar o cabeçalho
+    for (int c = 0; c < m->colunas; c++) printf("%d ", c % 10); 
     printf("\n");
     for (int r = 0; r < m->linhas; r++) {
         printf("%3d  ", r);
-        for (int c = 0; c < m->colunas; c++) putchar(tela[r][c]);
+        for (int c = 0; c < m->colunas; c++) {
+            putchar(tela[r][c]);
+            putchar(' '); // Espaço extra para "quadradar" a proporção do mapa
+        }
         printf("\n");
     }
     printf("\nLegenda: # parede | . coberto | ? ponto cego (nao coberto) | ^ > v < camera (direcao)\n");
